@@ -62,7 +62,7 @@ namespace ConsoleApp
                 }
 
                 string answer = Console.ReadLine();
-                if (answer == "yes" || answer == "Yes")
+                if (answer == "yes")
                 {
                     Console.WriteLine("ok");
                     Console.WriteLine("Age:");
