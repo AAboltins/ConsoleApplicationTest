@@ -12,8 +12,8 @@ namespace ConsoleApp
         {
 
             Program p = new Program();
-           
-            p.persons.Add(new Human("Amanda", "Robezniece", 32, "zilas" ));
+
+            p.persons.Add(new Human("Amanda", "Robezniece", 32, "zilas"));
             p.persons.Add(new Human("Karlis", "Ziema", 12, "brunas"));
             p.persons.Add(new Human("Laura", "Babrova", 22, "dzeltenas"));
 
@@ -62,7 +62,7 @@ namespace ConsoleApp
                 }
 
                 string answer = Console.ReadLine();
-                if (answer == "yes")
+                if (answer == "yes" || answer == "Yes")
                 {
                     Console.WriteLine("ok");
                     Console.WriteLine("Age:");
@@ -84,7 +84,7 @@ namespace ConsoleApp
                         persons.Add(new Human(name, surname, age2, eyecolor));
                         string lastCharacter = name.Substring(name.Length - 1);
                         if (lastCharacter == "s" || lastCharacter == "o")
-                        { 
+                        {
                             Console.WriteLine("Do you want to " + name + " Introduce him self?");
                         }
                         else
@@ -93,7 +93,7 @@ namespace ConsoleApp
                         }
 
                         bool End2 = false;
-                        while(End2 == false)
+                        while (End2 == false)
                         {
                             string answer2 = Console.ReadLine();
                             if (answer2 == "yes")
@@ -107,7 +107,7 @@ namespace ConsoleApp
                                 Console.WriteLine("ok");
                                 End2 = true;
                             }
-                            else if  (answer2 == "Introduce them all")
+                            else if (answer2 == "Introduce them all")
                             {
                                 Console.WriteLine("ok");
                                 for (int i = 0; i < persons.Count; i++)
