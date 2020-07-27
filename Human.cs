@@ -22,6 +22,8 @@ namespace ConsoleApp
             this.EyeColor = eyecolor; 
 
         }
+        public void CreateNewPerson() { 
+        }
         public void Introduce()
         {
             Console.WriteLine("Hi, my full name is " + this.Name + " " + this.Surname + "." + "I am " + this.Age + " years old");
@@ -36,6 +38,7 @@ namespace ConsoleApp
         }
         public void SetAge(int age)
         {
+            
             if (age < 0)
             {
                 Console.WriteLine("The age can not be less than zero");
@@ -64,6 +67,7 @@ namespace ConsoleApp
                         Console.WriteLine("This is yes or no question");
                         End = false;
                     }
+                    End = false;
                 }
             }
         }
