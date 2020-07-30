@@ -22,9 +22,21 @@ namespace ConsoleApp
             this.EyeColor = eyecolor; 
 
         }
-        public void Introduce()
+        public void PersonInfo(bool fullprofileinfo)
         {
-            Console.WriteLine("Hi, my full name is " + this.Name + " " + this.Surname + "." + "I am " + this.Age + " years old");
+           
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("--------------------------------------------------------------------------------------------");
+            Console.WriteLine("Name: " + this.Name);
+            Console.WriteLine("Surname: " + this.Surname);
+            Console.WriteLine("Age: " + this.Age);
+            Console.WriteLine("Eyecolor: " + this.EyeColor);
+            if (fullprofileinfo == false)
+            {
+                Console.WriteLine("--------------------------------------------------------------------------------------------");
+                fullprofileinfo = false;
+            }
+            Console.ForegroundColor = ConsoleColor.Blue;
         }
         public void AddNumbers(int a, int b)
         {
@@ -38,30 +50,34 @@ namespace ConsoleApp
         {
             if (age < 0)
             {
+                Console.ForegroundColor = ConsoleColor.Green;
                 Console.WriteLine("The age can not be less than zero");
                 this.Age = age;
+                Console.ForegroundColor = ConsoleColor.Blue;
             }
             else if(age < this.Age)
             {
+                Console.ForegroundColor = ConsoleColor.Green;
                 Console.WriteLine ("The new age for " + this.Name + " is younger are you sure you want to change the age");
+                Console.ForegroundColor = ConsoleColor.Blue;
                 while (End == false)
                 {
                     string answer = Console.ReadLine();
                     if (answer == "yes" || answer == "Yes")
                     {
-                        Console.WriteLine("ok");
                         this.Age = age;
                         End = true;
                     }
                     else if (answer == "no" || answer == "No")
                     {
-                        Console.WriteLine("ok");
                         End = true;
                         return;
                     }
                     else
                     {
+                        Console.ForegroundColor = ConsoleColor.Green;
                         Console.WriteLine("This is yes or no question");
+                        Console.ForegroundColor = ConsoleColor.Blue;
                         End = false;
                     }
                 }
