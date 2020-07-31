@@ -90,7 +90,6 @@ namespace ConsoleApp
                 int stringLength = codeline.Length;
                 int numberLength = stringLength - listelements.Length - 12;
                 string char19 = codeline.Substring((listelements.Length + 11), numberLength);
-                Console.WriteLine(char19);
                 int Int;
                 if (Int32.TryParse(char19, out Int))
                 {
@@ -171,10 +170,6 @@ namespace ConsoleApp
                 else if (line == "/add.new_person")
                 {
                     AddNewPerson();
-                }
-                else if (line == "test")
-                {
-                    persons[1].PersonInfo(false);
                 }
                 else if (line.Contains("/view") && line.Substring(line.Length - 1, 1) == "]")
                 {
