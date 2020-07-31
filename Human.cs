@@ -38,10 +38,6 @@ namespace ConsoleApp
             }
             Console.ForegroundColor = ConsoleColor.Blue;
         }
-        public void AddNumbers(int a, int b)
-        {
-            Console.WriteLine(a + b);
-        }
         public void SayName()
         {
             Console.WriteLine(this.Name);

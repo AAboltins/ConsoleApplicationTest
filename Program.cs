@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.Design;
 using System.Data;
 using System.IO;
 using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices.ComTypes;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Security.Cryptography.X509Certificates;
 
@@ -15,6 +17,7 @@ namespace ConsoleApp
         List<Human> persons = new List<Human>();
         static void Main(string[] args)
         {
+            commands commands = new commands();
             //create persons data
             Program p = new Program();
             p.persons.Add(new Human("Jenifer", "Lopez", 13, "Brunas"));
@@ -27,195 +30,123 @@ namespace ConsoleApp
             p.accounts.Add(new BankAccount(p.persons[p.accounts.Count].Name + " " + p.persons[p.accounts.Count].Surname, 200, "EUR", firstnumber, p.accounts.Count));
             p.accounts.Add(new BankAccount(p.persons[p.accounts.Count].Name + " " + p.persons[p.accounts.Count].Surname, 212300, "EUR", firstnumber, p.accounts.Count));
             p.accounts.Add(new BankAccount(p.persons[p.accounts.Count].Name + " " + p.persons[p.accounts.Count].Surname, 22300, "EUR", firstnumber, p.accounts.Count));
-            Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine("write '/help' to view command list");
-            Console.ForegroundColor = ConsoleColor.Blue;
-            p.MainDiolog("");
+            commands.WriteLine("to view the command list write |/help|");
+            p.ExtraLineProblem("");
         }
-        private void MainDiolog_command(string command)
+        private void ExtraLineProblem(string command)
         {
-            commands commands = new commands();
-            if (command.Contains("/view.accountsdata[") && command.Substring(command.Length - 1) == "]" && command.Length >= 21)
+            //if MainDiolog() is called by CheckStopAddNewPerson() then after typed command will show only extraline, because of string line = Console.ReadLine(). ExtraLineProblem() method solves this by  checing
+            //if sender is CheckStopAddNewPerson(), if so then it doesnt create new line it uses the command that was typed while AddingNewPerson.
+            if (command == "")
             {
-                if (command == "/view.accountsdata[all]")
+                string line = Console.ReadLine();
+                MainDiolog(line, true);
+            }
+            else
+            {
+                MainDiolog(command, true);
+            }
+        }
+        public void view(string codeline, string listelements)
+        {
+            
+            if (codeline == "/view.personsdata[all]")
+            {
+                Console.WriteLine(codeline);
+                foreach (var person in persons)
                 {
-                    foreach (var account in accounts)
-                    {
-                        account.BankAccountInfo(false);
-                    }
-                }
-                else
-                {
-                    int Tend2 = command.Length;
-                    int numberLength2 = Tend2 - 20;
-                    string char192 = command.Substring(19, numberLength2);
-                    int Int;
-                    if (Int32.TryParse(char192, out Int))
-                    {
-                        Int32.TryParse(char192, out Int);
-                        if (Int > accounts.Count)
-                        {
-                            Console.ForegroundColor = ConsoleColor.Red;
-                            Console.WriteLine("Index is to large!");
-                            Console.WriteLine($"Note: Total number of accounts are {accounts.Count}");
-                            Console.ForegroundColor = ConsoleColor.Blue;
-                        }
-                        else if (Int < 0)
-                        {
-                            Console.ForegroundColor = ConsoleColor.Red;
-                            Console.WriteLine("Index can not be negative!");
-                            Console.ForegroundColor = ConsoleColor.Blue;
-                        }
-                        for (int i = 0; i < accounts.Count; i++)
-                        {
-                            if (command == $"/view.accountsdata[{i}]")
-                            {
-                                accounts[i - 1].BankAccountInfo(false);
-                            }
-                        }
-
-                    }
-                    else
-                    {
-                        Console.ForegroundColor = ConsoleColor.Red;
-                        Console.WriteLine("Index must be a number!");
-                        Console.ForegroundColor = ConsoleColor.Blue;
-                    }
+                    person.PersonInfo(false);
                 }
             }
-            else if (command == "/exit")
+            else if (codeline == "/view.accountsdata[all]")
             {
-                commands.Exit();
-            }
-            else if (command == "/help")
-            {
-                commands.Help();
-            }
-            else if (command == "")
-            {
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("write '/help' to view command list");
-                Console.ForegroundColor = ConsoleColor.Blue;
-
-            }
-            else if (command == "/add.new_person")
-            {
-                AddNewPerson();
-            }
-            else if (command.Contains("/view.personsdata[") && command.Substring(command.Length - 1) == "]" && command.Length >= 20)
-            {
-                if (command == "/view.personsdata[all]")
+                foreach (var account in accounts)
                 {
-                    foreach (var person in persons)
-                    {   
-                        person.PersonInfo(false);
-                    }
+                    account.BankAccountInfo(false);
                 }
-                else
+            }
+            else if (codeline == "/view.profiledata[all]")
+            {
+                foreach (var person in persons)
                 {
-                    int Tend = command.Length;
-                    int numberLength = Tend - 19;
-                    string char19 = command.Substring(18, numberLength);
-                    int Int;
-                    if (Int32.TryParse(char19, out Int))
-                    {
-                        Int32.TryParse(char19, out Int);
-                        if (Int > persons.Count)
-                        {
-                            Console.ForegroundColor = ConsoleColor.Red;
-                            Console.WriteLine("Index is to large!");
-                            Console.WriteLine($"Note: Total number of persons profiles are {persons.Count}");
-                            Console.ForegroundColor = ConsoleColor.Blue;
-                        }
-                        else if (Int < 0)
-                        {
-                            Console.ForegroundColor = ConsoleColor.Red;
-                            Console.WriteLine("Index can not be negative!");
-                            Console.ForegroundColor = ConsoleColor.Blue;
-                        }
-                        for (int i = 0; i < persons.Count; i++)
-                        {
-                            if (command == $"/view.personsdata[{i}]")
-                            {
-                                persons[i - 1].PersonInfo(false);
-                            }
-                        }
-
-                    }
-                    else
-                    {
-                        Console.ForegroundColor = ConsoleColor.Red;
-                        Console.WriteLine("Index must be a number!");
-                        Console.ForegroundColor = ConsoleColor.Blue;
-                    }
+                    person.PersonInfo(true);
+                }
+                foreach (var account in accounts)
+                {
+                    account.BankAccountInfo(true);
                 }
             }
             else
             {
-                commands.Else(command);
-            }
-            MainDiolog("");
-        }
-        private void view(string codeline)
-        {
-
-        }
-        private void MainDiolog(string command)
-        {
-            commands commands = new commands();
-            bool end = false;
-
-
-            while (end == false)
-            {
-                string line = Console.ReadLine();
-                if (line.Contains("/view.accountsdata[") && line.Substring(line.Length - 1) == "]" && line.Length >= 21)
+                commands commands = new commands();
+                int stringLength = codeline.Length;
+                int numberLength = stringLength - listelements.Length - 12;
+                string char19 = codeline.Substring((listelements.Length + 11), numberLength);
+                Console.WriteLine(char19);
+                int Int;
+                if (Int32.TryParse(char19, out Int))
                 {
-                    if (line == "/view.accountsdata[all]")
+                    Int32.TryParse(char19, out Int);
+                    if (Int > persons.Count)
                     {
-                        foreach (var account in accounts)
+                        commands.ErrorMessage_ToLargeNum(listelements, persons.Count);
+                    }
+                    else if (Int < 0)
+                    {
+                        commands.ErrorMessage("[index] cannot be negative!");
+                    }
+                    for (int i = 0; i < persons.Count; i++)
+                    {
+                        if (codeline == $"/view.personsdata[{i}]")
                         {
-                            account.BankAccountInfo(false);
+                            persons[i - 1].PersonInfo(false);
                         }
+                        else if (codeline == $"/view.accountsdata[{i}]")
+                        {
+                            accounts[i - 1].BankAccountInfo(false);
+                        }
+                        else if (codeline == $"/view.fullprofiledata[{i}]")
+                        {
+                            persons[i - 1].PersonInfo(true);
+                            accounts[i - 1].BankAccountInfo(true);
+                        }
+                    }
+                }
+                else
+                {
+                    //checking if realy all number isnt only numbers or if just number is so  big, it cannot even store in Int32
+                    bool numbertolarge = true;
+                    for(int c = 0; c < char19.Length; c ++)
+                    {
+                        string checknumber = char19.Substring(c, 1);
+                        int Ichecknumber;
+                        if(!Int32.TryParse(checknumber, out Ichecknumber))
+                        {
+                            numbertolarge = false;
+                            break;
+                        }
+                    }
+                    if(numbertolarge == true)
+                    {
+                        commands.ErrorMessage_ToLargeNum(listelements, persons.Count);
                     }
                     else
                     {
-                        int Tend2 = line.Length;
-                        int numberLength2 = Tend2 - 20;
-                        string char192 = line.Substring(19, numberLength2);
-                        int Int;
-                        if (Int32.TryParse(char192, out Int))
-                        {
-                            Int32.TryParse(char192, out Int);
-                            if (Int > accounts.Count)
-                            {
-                                Console.ForegroundColor = ConsoleColor.Red;
-                                Console.WriteLine("Index is to large!");
-                                Console.WriteLine($"Note: Total number of accounts are {accounts.Count}");
-                                Console.ForegroundColor = ConsoleColor.Blue;
-                            }
-                            else if (Int < 0)
-                            {
-                                Console.ForegroundColor = ConsoleColor.Red;
-                                Console.WriteLine("Index can not be negative!");
-                                Console.ForegroundColor = ConsoleColor.Blue;
-                            }
-                            for (int i = 0; i < accounts.Count; i++)
-                            {
-                                if (line == $"/view.accountsdata[{i}]")
-                                {
-                                    accounts[i - 1].BankAccountInfo(true);
-                                }
-                            }
-
-                        }
-                        else
-                        {
-                            Console.ForegroundColor = ConsoleColor.Red;
-                            Console.WriteLine("Index must be a number!");
-                            Console.ForegroundColor = ConsoleColor.Blue;
-                        }
+                        commands.ErrorMessage("[index] must be a number!");
                     }
+                }
+            }
+            ExtraLineProblem("");
+        }
+        private void MainDiolog(string line, bool ExtraLineProblemSender)
+        {
+            commands commands = new commands();
+            bool end = false;
+            while (end == false)
+            {
+                if (ExtraLineProblemSender == false)
+                {
+                    ExtraLineProblem("");
                 }
                 else if (line == "/exit")
                 {
@@ -227,118 +158,74 @@ namespace ConsoleApp
                 }
                 else if (line == "")
                 {
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine("write '/help' to view command list");
-                    Console.ForegroundColor = ConsoleColor.Blue;
+                    commands.WriteLine("write '/help' to view command list");
                 }
                 else if (line == "/add.new_person")
                 {
                     AddNewPerson();
                 }
-
-                else if (line.Contains("/view.personsdata[") && line.Substring(line.Length - 1) == "]" && line.Length >= 20)
+                else if (line == "test")
                 {
-                    if (line == "/view.personsdata[all]")
+                    persons[1].PersonInfo(false);
+                }
+                else if (line.Contains("/view") && line.Substring(line.Length - 1, 1) == "]")
+                {
+                    commands.Check(line);
+                    if(commands.check == true)
                     {
-                        foreach (var person in persons)
-                        {
-                            person.PersonInfo(false);
-                        }
+                        view(line, commands.returnlistelemnts);
                     }
                     else
                     {
-                        int Tend = line.Length;
-                        int numberLength = Tend - 19;
-                        string char19 = line.Substring(18, numberLength);
-                        int Int;
-                        if (Int32.TryParse(char19, out Int))
-                        {
-                            Int32.TryParse(char19, out Int);
-                            if (Int > persons.Count)
-                            {
-                                Console.ForegroundColor = ConsoleColor.Red;
-                                Console.WriteLine("Index is to large!");
-                                Console.WriteLine($"Note: Total number of persons profiles are {persons.Count}");
-                                Console.ForegroundColor = ConsoleColor.Blue;
-                            }
-                            else if (Int < 0)
-                            {
-                                Console.ForegroundColor = ConsoleColor.Red;
-                                Console.WriteLine("Index can not be negative!");
-                                Console.ForegroundColor = ConsoleColor.Blue;
-                            }
-                            for (int i = 0; i < persons.Count; i++)
-                            {
-                                if (line == $"/view.personsdata[{i}]")
-                                {
-                                    persons[i - 1].PersonInfo(false);
-                                }
-                            }
-
-                        }
-                        else
-                        {
-                            Console.ForegroundColor = ConsoleColor.Red;
-                            Console.WriteLine("Index must be a number!");
-                            Console.ForegroundColor = ConsoleColor.Blue;
-                        }
+                        commands.Else(line);
                     }
                 }
                 else
                 {
                     commands.Else(line);
                 }
-            }    
+                ExtraLineProblemSender = false;
+            }
         }
-        public  void AddNewPerson()
+        public void AddNewPerson()
         {
-                Program p = new Program();
-                string name = null;
-                string surname = null;
-                string ageinput = null;
-                int age2;
-                string eyecolor = null;
-                bool End = false;
-
+            Program p = new Program();
+            commands commands = new commands();
+            string name = null;
+            string surname = null;
+            string ageinput = null;
+            int age2;
+            string eyecolor = null;
+            bool End = false;
 
             while (End == false)
             {
-                Console.ForegroundColor = ConsoleColor.Green;
-                Console.WriteLine("new person.age:");
-                Console.ForegroundColor = ConsoleColor.Blue;
+                commands.WriteLine("new person.age:");
                 ageinput = Console.ReadLine();
                 CheckStopAddNewPerson(ageinput);
 
                 if (Int32.TryParse(ageinput, out age2))
                 {
                     Int32.TryParse(ageinput, out age2);
-                    Console.ForegroundColor = ConsoleColor.Green;
-                    Console.WriteLine("new person.name:");
-                    Console.ForegroundColor = ConsoleColor.Blue;
+
+                    commands.WriteLine("new person.name:");
                     name = Console.ReadLine();
                     CheckStopAddNewPerson(name);
-                    Console.ForegroundColor = ConsoleColor.Green;
-                    Console.WriteLine("new person.surname:");
-                    Console.ForegroundColor = ConsoleColor.Blue;
+
+                    commands.WriteLine("new person.surname:");
                     surname = Console.ReadLine();
                     CheckStopAddNewPerson(surname);
-                    Console.ForegroundColor = ConsoleColor.Green;
-                    Console.WriteLine("new person.eyecolor:");
-                    Console.ForegroundColor = ConsoleColor.Blue;
+
+                    commands.WriteLine("new person.eyecolor:");
                     eyecolor = Console.ReadLine();
                     CheckStopAddNewPerson(eyecolor);
 
                     persons.Add(new Human(name, surname, age2, eyecolor));
 
-                    Console.ForegroundColor = ConsoleColor.Green;
-                    Console.WriteLine($"{name} {surname} bank account:");
-                    Console.ForegroundColor = ConsoleColor.Blue;
+                    commands.WriteLine($"{name} {surname} bank account:");
+                    commands.WriteLine("Balance:");
 
-                    Console.ForegroundColor = ConsoleColor.Green;
-                    Console.WriteLine("Balance:");
-                    Console.ForegroundColor = ConsoleColor.Blue;
-                    string balance = null ;
-
+                    string balance = null;
                     string Currency = null;
                     bool stop = false;
                     int Ibalance;
@@ -348,74 +235,63 @@ namespace ConsoleApp
                         if (Int32.TryParse(balance, out Ibalance))
                         {
                             Int32.TryParse(balance, out Ibalance);
-                            Console.ForegroundColor = ConsoleColor.Green;
-                            Console.WriteLine("Currnecy:");
-                            Console.ForegroundColor = ConsoleColor.Blue;
+                            commands.WriteLine("Currnecy:");
                             Currency = Console.ReadLine();
+
                             accounts.Add(new BankAccount(persons[accounts.Count].Name + " " + persons[accounts.Count].Surname, Ibalance, Currency, 12, accounts.Count));
                             stop = true;
                         }
                         else
                         {
-                            Console.ForegroundColor = ConsoleColor.Red;
-                            Console.WriteLine("Balance must be a number");
-                            Console.ForegroundColor = ConsoleColor.Blue;
+                            commands.ErrorMessage("balance must be a number!");
                         }
                     }
-                    
-                    Console.ForegroundColor = ConsoleColor.Green;
-                    Console.WriteLine("View " + name + " profile together (Y/N)");
-                    Console.ForegroundColor = ConsoleColor.Blue;
+                    commands.WriteLine("view " + name + " profile together (Y/N)");
 
                     bool End2 = false;
                     while (End2 == false)
                     {
                         string answer2 = Console.ReadLine();
                         CheckStopAddNewPerson(answer2);
+
                         if (answer2 == "Y")
                         {
                             persons[persons.Count - 1].PersonInfo(true);
+                            accounts[persons.Count - 1].BankAccountInfo(true);
                             End2 = true;
                             End = true;
-                            MainDiolog("");
+                            ExtraLineProblem(""); ;
 
                         }
                         else if (answer2 == "N")
                         {
-                             End2 = true;
-                             End = true;
-                             MainDiolog("");
+                            End2 = true;
+                            End = true;
+                            ExtraLineProblem(""); ;
                         }
                         else
                         {
-                            Console.ForegroundColor = ConsoleColor.Red;
-                            Console.WriteLine("This is Y/N n question");
-                            Console.ForegroundColor = ConsoleColor.Blue;
+                            commands.ErrorMessage("this is Y/N n question!");
                             End2 = false;
-                        } 
-
+                        }
                     }
                 }
                 else
                 {
-                    Console.WriteLine("Age must be a number");
+                    commands.ErrorMessage("age must be a number!");
                 }
-                End = false;
             }
         }
         public void CheckStopAddNewPerson(string consoleline)
         {
+            //checking if user is typing command while creating new persons account to avoid this mistake : "Name:/(command)"
             string firstchar = consoleline.Substring(0, 1);
-            if(firstchar == "/")
+            if (firstchar == "/")
             {
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("add.new_person() process exited and stoped");
-                Console.ForegroundColor = ConsoleColor.Blue;
-                MainDiolog_command(consoleline);
-                Environment.Exit(0);
+                commands commands = new commands();
+                commands.ErrorMessage("add.new_person() process exited and stoped!");
+                ExtraLineProblem(consoleline);
             }
         }
-
     }
-
 }
