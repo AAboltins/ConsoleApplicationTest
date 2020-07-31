@@ -18,20 +18,33 @@ namespace ConsoleApp
         static void Main(string[] args)
         {
             commands commands = new commands();
-            //create persons data
-            Program p = new Program();
-            p.persons.Add(new Human("Jenifer", "Lopez", 13, "Brunas"));
-            p.persons.Add(new Human("Anna", "Skroderniece", 14, "Violetas"));
-            p.persons.Add(new Human("Mikelis", "Mucinieks", 16, "Zilas"));
-            p.persons.Add(new Human("Kristaps", "Kalejs", 17, "Zalas"));
-            //create accounts here(note: you can not create new account if there is not profile that matches)
-            int firstnumber = 12;
-            p.accounts.Add(new BankAccount(p.persons[p.accounts.Count].Name + " " + p.persons[p.accounts.Count].Surname, 200, "EUR", firstnumber, 0));
-            p.accounts.Add(new BankAccount(p.persons[p.accounts.Count].Name + " " + p.persons[p.accounts.Count].Surname, 200, "EUR", firstnumber, p.accounts.Count));
-            p.accounts.Add(new BankAccount(p.persons[p.accounts.Count].Name + " " + p.persons[p.accounts.Count].Surname, 212300, "EUR", firstnumber, p.accounts.Count));
-            p.accounts.Add(new BankAccount(p.persons[p.accounts.Count].Name + " " + p.persons[p.accounts.Count].Surname, 22300, "EUR", firstnumber, p.accounts.Count));
-            commands.WriteLine("to view the command list write |/help|");
-            p.ExtraLineProblem("");
+            try
+            {
+                
+                //create persons data
+                Program p = new Program();
+                p.persons.Add(new Human("Jenifer", "Lopez", 13, "Brunas"));
+                p.persons.Add(new Human("Anna", "Skroderniece", 14, "Violetas"));
+                p.persons.Add(new Human("Mikelis", "Mucinieks", 16, "Zilas"));
+                p.persons.Add(new Human("Kristaps", "Kalejs", 17, "Zalas"));
+                //create accounts here(note: you can not create new account if there is not profile that matches)
+                int firstnumber = 12;
+                p.accounts.Add(new BankAccount(p.persons[p.accounts.Count].Name + " " + p.persons[p.accounts.Count].Surname, 200, "EUR", firstnumber, 0));
+                p.accounts.Add(new BankAccount(p.persons[p.accounts.Count].Name + " " + p.persons[p.accounts.Count].Surname, 200, "EUR", firstnumber, p.accounts.Count));
+                p.accounts.Add(new BankAccount(p.persons[p.accounts.Count].Name + " " + p.persons[p.accounts.Count].Surname, 212300, "EUR", firstnumber, p.accounts.Count));
+                p.accounts.Add(new BankAccount(p.persons[p.accounts.Count].Name + " " + p.persons[p.accounts.Count].Surname, 22300, "EUR", firstnumber, p.accounts.Count));
+
+                commands.WriteLine("to view the command list write |/help|");
+                p.ExtraLineProblem("");
+            }
+            catch
+            {
+                commands.ErrorMessage("[accounts] cannot be more than [persons], they need to be the same count!");
+                commands.ErrorMessage("delete extra [accounts] or create new [persons] and then restart console!");
+                commands.ErrorMessage("press key Enter to close console!");
+                Console.ReadLine();
+                Environment.Exit(0);
+            }
         }
         private void ExtraLineProblem(string command)
         {
@@ -114,7 +127,7 @@ namespace ConsoleApp
                 }
                 else
                 {
-                    //checking if realy all number isnt only numbers or if just number is so  big, it cannot even store in Int32
+                    //checking if realy in char19 is some string or if just char19 is so  big number, it cannot even store in Int32
                     bool numbertolarge = true;
                     for(int c = 0; c < char19.Length; c ++)
                     {
