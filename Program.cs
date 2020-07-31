@@ -29,11 +29,10 @@ namespace ConsoleApp
                 p.persons.Add(new Human("Kristaps", "Kalejs", 17, "Zalas"));
                 //create accounts here(note: you can not create new account if there is not profile that matches)
                 int firstnumber = 12;
-                p.accounts.Add(new BankAccount(p.persons[p.accounts.Count].Name + " " + p.persons[p.accounts.Count].Surname, 200, "EUR", firstnumber, 0));
-                p.accounts.Add(new BankAccount(p.persons[p.accounts.Count].Name + " " + p.persons[p.accounts.Count].Surname, 200, "EUR", firstnumber, p.accounts.Count));
-                p.accounts.Add(new BankAccount(p.persons[p.accounts.Count].Name + " " + p.persons[p.accounts.Count].Surname, 212300, "EUR", firstnumber, p.accounts.Count));
-                p.accounts.Add(new BankAccount(p.persons[p.accounts.Count].Name + " " + p.persons[p.accounts.Count].Surname, 22300, "EUR", firstnumber, p.accounts.Count));
-
+                p.accounts.Add(new BankAccount($"{ p.persons[p.accounts.Count].Name} {p.persons[p.accounts.Count].Surname }", 200, "EUR", firstnumber, 0));
+                p.accounts.Add(new BankAccount($"{ p.persons[p.accounts.Count].Name} {p.persons[p.accounts.Count].Surname }", 200, "EUR", firstnumber, p.accounts.Count));
+                p.accounts.Add(new BankAccount($"{ p.persons[p.accounts.Count].Name} {p.persons[p.accounts.Count].Surname }", 212300, "EUR", firstnumber, p.accounts.Count));
+                p.accounts.Add(new BankAccount($"{ p.persons[p.accounts.Count].Name} {p.persons[p.accounts.Count].Surname }", 22300, "EUR", firstnumber, p.accounts.Count));
                 commands.WriteLine("to view the command list write |/help|");
                 p.ExtraLineProblem("");
             }
@@ -251,7 +250,7 @@ namespace ConsoleApp
                             commands.WriteLine("Currnecy:");
                             Currency = Console.ReadLine();
 
-                            accounts.Add(new BankAccount(persons[accounts.Count].Name + " " + persons[accounts.Count].Surname, Ibalance, Currency, 12, accounts.Count));
+                            accounts.Add(new BankAccount($"{persons[accounts.Count].Name} {persons[accounts.Count].Surname}", Ibalance, Currency, 12, accounts.Count));
                             stop = true;
                         }
                         else
@@ -291,7 +290,7 @@ namespace ConsoleApp
                 }
                 else
                 {
-                    commands.ErrorMessage("age must be a number!");
+                  commands.ErrorMessage("age must be a number!");
                 }
             }
         }
