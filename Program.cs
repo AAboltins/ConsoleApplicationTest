@@ -76,7 +76,7 @@ namespace ConsoleApp
                     account.BankAccountInfo(false);
                 }
             }
-            else if (codeline == "/view.profiledata[all]")
+            else if (codeline == "/view.fullprofiledata[all]")
             {
                 foreach (var person in persons)
                 {
