@@ -64,7 +64,6 @@ namespace ConsoleApp
             
             if (codeline == "/view.personsdata[all]")
             {
-                Console.WriteLine(codeline);
                 foreach (var person in persons)
                 {
                     person.PersonInfo(false);
