@@ -47,7 +47,9 @@ namespace ConsoleApp
             Console.WriteLine("command :| /view.accountsdata[all] | to show all accounts information ");
             Console.WriteLine("command :| /view.accountsdata[index of account wich you want to view( example: /view.accountsdata[1] )] | to show individual accounts information");
             Console.WriteLine("command :| /view.personsdata[all] | to show all persons infromration");
-            Console.WriteLine("command :| /view.personsdata[index of person wich data you want to view( example: /view.personsdata[1] )] | to show individual persons profile/information");
+            Console.WriteLine("command :| /view.personsdata[index of person wich data you want to view( example: /view.personsdata[1] )] | to show individual persons information");
+            Console.WriteLine("command :| /view.fullprofile[all] | to shows all full profiles infromration");
+            Console.WriteLine("command :| /view.fullprofiledata[index of profile wich data you want to view( example: /view.fullprofilesdata[1] )] | to show individual profile information");
             Console.WriteLine("command :| /exit |, after that command | /confirmed | to exit from console");
             Console.WriteLine("Command :| /add.new_person ] to add new person");
             Console.ForegroundColor = ConsoleColor.Blue;
