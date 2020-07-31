@@ -4,7 +4,7 @@ using System.Globalization;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 
-namespace MyFirstConsoleApplication
+namespace ConsoleApp
 {
     class Human
     {

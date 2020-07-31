@@ -3,8 +3,8 @@
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp3.1</TargetFramework>
-    <AssemblyName>MyFirstConsoleApp</AssemblyName>
-    <RootNamespace>MyFirstConsoleApp</RootNamespace>
+    <AssemblyName>ConsoleApp</AssemblyName>
+    <RootNamespace>ConsoleApp</RootNamespace>
     <ApplicationIcon>consoleicon.ico</ApplicationIcon>
   </PropertyGroup>
 
