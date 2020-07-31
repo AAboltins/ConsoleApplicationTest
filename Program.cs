@@ -102,7 +102,7 @@ namespace ConsoleApp
                     {
                         commands.ErrorMessage("[index] cannot be negative!");
                     }
-                    for (int i = 0; i < persons.Count; i++)
+                    for (int i = 0; i < persons.Count + 1; i++)
                     {
                         if (codeline == $"/view.personsdata[{i}]")
                         {
