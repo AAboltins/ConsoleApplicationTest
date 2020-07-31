@@ -18,8 +18,8 @@ namespace ConsoleApp
         static void Main(string[] args)
         {
             commands commands = new commands();
-            try
-            {
+            //try
+           // {
                 
                 //create persons data
                 Program p = new Program();
@@ -35,15 +35,15 @@ namespace ConsoleApp
                 p.accounts.Add(new BankAccount($"{ p.persons[p.accounts.Count].Name} {p.persons[p.accounts.Count].Surname }", 22300, "EUR", firstnumber, p.accounts.Count));
                 commands.WriteLine("to view the command list write |/help|");
                 p.ExtraLineProblem("");
-            }
-            catch
-            {
-                commands.ErrorMessage("[accounts] cannot be more than [persons], they need to be the same count!");
-                commands.ErrorMessage("delete extra [accounts] or create new [persons] and then restart console!");
-                commands.ErrorMessage("press key Enter to close console!");
-                Console.ReadLine();
-                Environment.Exit(0);
-            }
+            //}
+            //catch
+            //{
+                //commands.ErrorMessage("[accounts] cannot be more than [persons], they need to be the same count!");
+                //commands.ErrorMessage("delete extra [accounts] or create new [persons] and then restart console!");
+                //commands.ErrorMessage("press key Enter to close console!");
+               // Console.ReadLine();
+                //Environment.Exit(0);
+            //}
         }
         private void ExtraLineProblem(string command)
         {
@@ -78,13 +78,10 @@ namespace ConsoleApp
             }
             else if (codeline == "/view.fullprofiledata[all]")
             {
-                foreach (var person in persons)
+                for(int f = 0; f < persons.Count; f++)
                 {
-                    person.PersonInfo(true);
-                }
-                foreach (var account in accounts)
-                {
-                    account.BankAccountInfo(true);
+                    persons[f].PersonInfo(true);
+                    accounts[f].BankAccountInfo(true);
                 }
             }
             else
