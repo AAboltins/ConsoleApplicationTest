@@ -8,7 +8,7 @@ using System.Runtime.InteropServices.ComTypes;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Security.Cryptography.X509Certificates;
 
-namespace ConsoleApp
+namespace MyFirstConsoleApplication
 {
     class Program
     {

@@ -5,7 +5,7 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <AssemblyName>MyFirstConsoleApp</AssemblyName>
     <RootNamespace>MyFirstConsoleApp</RootNamespace>
-    <ApplicationIcon>consoleicon (1).ico</ApplicationIcon>
+    <ApplicationIcon>consoleicon.ico</ApplicationIcon>
   </PropertyGroup>
 
 </Project>
